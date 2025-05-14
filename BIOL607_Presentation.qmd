@@ -1,0 +1,208 @@
+---
+title: "BIOL 607 Final Presentation"
+subtitle: "Dantony Lewis"
+format: revealjs
+---
+
+## Photoreceptors
+
+- plants possess several photoreceptor proteins that precieve light from blue to far red
+
+- plants use light signals to adjust their growth patterns by modifying celullar process 
+
+## Phytochrome vs Cryptochrome
+
+- Phytochrome absorbs far-red, red, and blue light. Cryptochrome absorbs blue light.
+
+- Phytochrome and Cryptochrome is comprised of genes involved in light signaling with different functions throughout plant life. (*phyA*, *phyB*, *cry1*, *cry2*)
+
+## Question
+Which photoreceptor gene (*phyA*, *phyB*, *cry1*, *cry2*) promotes growth in the light responsive gene network in *Arabidopsis thaliana*. 
+
+**Hypothesis**: *phyB* significantly impacts physiological active light responses in leaf growth in the light responsive gene network of *A. thaliana*.
+
+## Data
+Collected by: Department of Biotechnology and Life Sciences, University of Insubria, Varese (VA), Italy
+
+- *A. thaliana* mutants containing the loss-of-function in specific photoreceptors grown under high-pressure sodium (HPS) lamps
+
+- Lamina / Petiole ratio (L/P) measured when the six-leaf stage is reached ~17 days after sowing(DAS)
+
+## Base Data Visualization
+```{r}
+#| warning: false
+#| message: false
+library(tidyverse)
+base_d <- read_csv("data/revised_data.csv")
+# Base Viz
+base_viz <- ggplot(data = base_d,
+                   aes(x = Mutant,
+                       y = `L/P`,
+                       color = Mutant)) +
+  scale_color_viridis_d() +
+  geom_boxplot()
+base_viz
+```
+
+## Linear Model
+$$
+L/P_i = \beta_0 + \sum_{j=1}^{k} \beta_j \cdot \text{Mutant}_{ij} + \varepsilon_i
+$$
+
+
+::::: columns
+::: {.column width="60%"}
+```{r}
+#| warning: false
+#| message: false
+# Base Model 
+library(performance)
+library(broom)
+library(car)
+
+base_d <- base_d |>
+  mutate(Mutant = factor(Mutant, levels = c("WT", setdiff(unique(Mutant), "WT"))))
+
+
+lm_model <-  lm(`L/P` ~ Mutant, data = base_d)
+
+check_residuals(lm_model) |> plot()
+```
+:::
+::: {.column width="40%"}
+```{r}
+
+tidy(lm_model)[, c("term", "p.value")] |>
+  select(Photoreceptor = term, p.value)
+```
+:::
+::::
+## Tukey's Test {.smaller}
+Used to preform pairwise comparisons between different levels of factor in a linear model to determine significant difference.
+```{r}
+Anova_mod <- aov(lm_model)
+
+Tukey_mod <- TukeyHSD(x = Anova_mod, "Mutant", conf.level = 0.95)
+
+my_colors <- c("navy", "red", "orange", "navy", "black", "black", "black", "black", "black", "black")
+par(mar=c(5,6,4,1)+.1)
+
+Tukey_plot <- plot(Tukey_mod, las=1, col=my_colors)
+```
+
+## AIC Model Average {.smaller}
+Combining the prediction of two models: null model (mean only) and categorical model (linear model), then reflecting the weighted average  
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+#| results: hide
+library(AICcmodavg)
+library(MuMIn)
+
+phyto_lm <- lm(`L/P` ~ Mutant, data = base_d)
+phyto_mean <- lm(`L/P` ~ 1, data = base_d)
+
+aictab(list(phyto_lm, phyto_mean), 
+       c("linear model", "mean only"),
+       second.ord = FALSE)
+
+mod_list <- list(phyto_mean, phyto_lm)
+mod_names <- c("mean only", "linear model")
+
+mod_names <- 0:4
+
+avg_model <- model.avg(mod_list)
+
+
+new_data <- data.frame(Mutant = unique(base_d$Mutant))
+preds <- predict(avg_model, newdata = new_data, se.fit = TRUE)
+
+pred_df <- data.frame(
+  Mutant = new_data$Mutant,
+  fit = preds$fit,
+  lower = preds$fit - 1.96 * preds$se.fit,
+  upper = preds$fit + 1.96 * preds$se.fit)
+
+aic_plot <- ggplot(pred_df, aes(x = Mutant, y = fit, color = "Predicted")) +
+  geom_point(size = 3) +
+  geom_errorbar(aes(ymin = lower, ymax = upper, color = "Predicted"), width = 0.2) +
+  geom_jitter(data = base_d, aes(x = Mutant, y = `L/P`, color = "Observed"), 
+              width = 0.05, alpha = 0.5, size = 2) +
+  scale_color_manual(name = "Data Type",
+                     values = c("Observed" = "skyblue", "Predicted" = "grey40")) +
+   labs(y = "L/P Ratio", x = "Mutant", 
+       title = "Observed and Model-Averaged Predicted L/P Values") +
+  theme_minimal()
+aic_plot
+```
+## Gene Expression Analyisis 
+Data Collected by: Shanghai University, Shanghai, China
+
+- Analyzing the gene expression profile of red-light grown *phyB* mutants by sequencing mRNA from samples to analyze the genes regulated by *phyB.* 
+
+- Using limma an r package from Bioconductor, to analyze gene expression data and identity significant genes
+
+## Gene Expression Analyisis: Limma Visualization {.smaller}
+M value = difference between the log~2~-transformed expression values
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+#| results: hide
+
+library(limma)
+
+exprs <- read.csv("data/expression_matrix.csv", header=TRUE, row.names=1)
+exprs <- exprs[, c("RPKM_PhyB", "RPKM_WT")]
+colnames(exprs) <- c("PhyB", "WT")
+exprs <- as.matrix(exprs)
+
+metadata <- data.frame(
+  Sample = c("PhyB", "WT"),
+  Genotype = c("PhyB", "WT"),
+  Ratio = c(NA, NA))  # no phenotype data
+rownames(metadata) <- metadata$Sample
+metadata$Genotype <- factor(metadata$Genotype)
+exprs <- log2(exprs + 1)
+
+design <- model.matrix(~ 0 + Genotype, data=metadata)
+colnames(design) <- levels(metadata$Genotype)
+
+fit <- lmFit(exprs, design)
+contrast.matrix <- makeContrasts(PhyB_vs_WT = PhyB - WT, levels=design)
+fit2 <- contrasts.fit(fit, contrast.matrix)
+
+results <- fit2$coefficients
+
+log2fc <- log2(exprs[, "PhyB"]) - log2(exprs[, "WT"])
+results <- data.frame(
+  Gene = rownames(exprs),
+  log2FoldChange = log2fc
+)
+head(results[order(-abs(results$log2FoldChange)), ])
+
+A <- (log2(exprs[, "PhyB"]) + log2(exprs[, "WT"])) / 2
+M <- log2(exprs[, "PhyB"]) - log2(exprs[, "WT"])
+limma_plot <- plot(A, M, pch=16, cex=0.6, main="MA Plot of PhyB constrasted to WT", 
+     xlab="Average log2 Expression (A)", ylab="log2 Fold Change (M)",
+     col=ifelse(abs(M) > 1, "gray", "black"))
+abline(h=0, col="red")
+highlight_genes <- abs(M) > 2
+points(A[highlight_genes], M[highlight_genes], col="skyblue", pchisq=16, cex=1.2)
+
+limma_plot
+```
+::: footer
+[Blue]{style="color:skyblue;"} circles represent genes that are significantly differently expressed
+:::
+## Analysis
+- Mutant *phyB* has the greatest impact on leaf growth (L/P), suggesting significant difference from WT
+- Other mutants show similar leaf growth(L/P) to WT, suggests there is no clear effect
+- There are significant genes that likely play a role in how *phyB* differs biologically from WT
+
+## Further Exploration
+ - Is leaf growth (L/P) predictive of *phyB* gene expression patterns in *Arabidopsis thaliana*? 
+ - Measure a phenotypic factor as well as gene expression to create a model that utilizes both. 
+ - With use of significant *phyB* genes we can find which genes' expression level change with leaf growth and if *phyB*-regulated genes are among these
