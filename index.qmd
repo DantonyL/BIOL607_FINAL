@@ -1,32 +1,59 @@
 ---
-title: "BIOL 607 Final Presentation"
+title: "Dissecting Photoreceptor Contributions to Leaf Growth"
 subtitle: "Dantony Lewis"
-format: revealjs
+format:
+  revealjs:
+    incremental: true   
+    theme: simple
 ---
 
 ## Photoreceptors
 
-- plants possess several photoreceptor proteins that precieve light from blue to far red
+- Plants possess several photoreceptor proteins that percieve light from blue to far red
 
-- plants use light signals to adjust their growth patterns by modifying celullar process 
+- Plants use light signals to activate photoreceptors that interact with transcription factors (PIFs) in order to impact hormone signaling pathways that adjust cellular processes
 
-## Phytochrome vs Cryptochrome
+::: {.slide style="text-align: center;"}
+![](images/visible-light-spectrum-infared-and-ultraviolet-electromagnetic-visible-color-spectrum-for-human-eye-gradient-diagram-with-wavelength-and-colors-educational-illustration-on-white-background-vector.jpg){width=70% height=70%}
+:::
 
-- Phytochrome absorbs far-red, red, and blue light. Cryptochrome absorbs blue light.
+## Phytochrome & Cryptochrome
 
-- Phytochrome and Cryptochrome is comprised of genes involved in light signaling with different functions throughout plant life. (*phyA*, *phyB*, *cry1*, *cry2*)
+- Phytochrome & Cyrptochrome are the essential photoreceptor proteins but respond to different wavelengths of light 
+
+- The main types of Photoreceptors that signal different functions throughout plant life are: *phyA*, *phyB*, *cry1*, *cry2*
 
 ## Question
-Which photoreceptor gene (*phyA*, *phyB*, *cry1*, *cry2*) promotes growth in the light responsive gene network in *Arabidopsis thaliana*. 
+Which photoreceptor (*phyA*, *phyB*, *cry1*, *cry2*) promotes leaf growth in the light responsive gene network of the *Arabidopsis thaliana*. 
 
-**Hypothesis**: *phyB* significantly impacts physiological active light responses in leaf growth in the light responsive gene network of *A. thaliana*.
+**Prior Studies**
 
-## Data
+- *phyB* red light signaling inhibits the initiation of leaf senescence^[(Sakuraba, 2021)]
+
+- Other photoreceptors (*cry1* & *phyA*) inhibit *phyB* suppression of floral initiation^[(Mockler, 1999)]
+
+::: aside
+
+:::
+
+## Hypothesis
+
+- *phyB* significantly promotes active light responses in leaf growth within the light responsive gene network of *A. thaliana*
+
+::: {.slide style="text-align: center;"}
+![](images/Arabidopsis_thaliana_rosette_transparent_background.png){width=40% height=40%}
+:::
+
+## Data {.smaller}
 Collected by: Department of Biotechnology and Life Sciences, University of Insubria, Varese (VA), Italy
 
 - *A. thaliana* mutants containing the loss-of-function in specific photoreceptors grown under high-pressure sodium (HPS) lamps
 
 - Lamina / Petiole ratio (L/P) measured when the six-leaf stage is reached ~17 days after sowing(DAS)
+
+::: {.slide style="text-align: center;"}
+![](images/leaf_diagram.jpg){width=30% height=30%}
+:::
 
 ## Base Data Visualization
 ```{r}
@@ -143,9 +170,13 @@ Data Collected by: Shanghai University, Shanghai, China
 
 - Using limma an r package from Bioconductor, to analyze gene expression data and identity significant genes
 
-## Gene Expression Analyisis: Limma Visualization {.smaller}
-M value = difference between the log~2~-transformed expression values
+::: {.slide style="text-align: center;"}
+![](images/0*1EvyFTQv-JAZh5nM.png){width=17% height=17%}
+:::
 
+## limma Visualization {.smaller}
+M value = difference between the log~2~-transformed expression values  
+A value = average log~2~ expression
 ```{r}
 #| warning: false
 #| message: false
@@ -198,11 +229,35 @@ limma_plot
 [Blue]{style="color:skyblue;"} circles represent genes that are significantly differently expressed
 :::
 ## Analysis
-- Mutant *phyB* has the greatest impact on leaf growth (L/P), suggesting significant difference from WT
-- Other mutants show similar leaf growth(L/P) to WT, suggests there is no clear effect
-- There are significant genes that likely play a role in how *phyB* differs biologically from WT
+**Categorical Linear Model**   
+
+- Mutant *phyB* impact on leaf growth (L/P) is significantly different from the WT  
+
+- *phyA* & *cry2* show no clear effect on leaf growth, while *cry1* suggests some difference  
+
+**limma MA plot**  
+
+- There are significant genes that likely play a role in how *phyB* differs biologically from the WT  
 
 ## Further Exploration
  - Is leaf growth (L/P) predictive of *phyB* gene expression patterns in *Arabidopsis thaliana*? 
- - Measure a phenotypic factor as well as gene expression to create a model that utilizes both. 
- - With use of significant *phyB* genes we can find which genes' expression level change with leaf growth and if *phyB*-regulated genes are among these
+ - Measure a phenotypic factor as well as gene expression to create a model that utilizes both
+ - With use of significant *phyB* genes, we can find which genes' expression level change with leaf growth and if *phyB*-regulated genes are among these
+ 
+## References {.scrollable .smaller}
+
+::: {.nonincremental}
+- Beatrice, Peter, et al. “Photoreceptors’ gene expression of Arabidopsis thaliana grown with biophilic LED-sourced lighting systems.” PLOS ONE, vol. 17, no. 6, 10 June 2022
+
+- Boccalandro, Hernán E., et al. “Phytochrome B enhances photosynthesis at the expense of water-use efficiency in Arabidopsis.” Plant Physiology, vol. 150, no. 2, 10 Apr. 2009, pp. 1083–1092
+
+- Colón-Carmona, Adán (2025, March). Lecture 12: Light Signaling & Responses [Lecture]. BIOL 321: Plant Physiology, University of Massachusetts Boston
+
+- Kozuka, Toshiaki, et al. “The different growth responses of the Arabidopsis thaliana leaf blade and the petiole during shade avoidance are regulated by photoreceptors and sugar.” Plant and Cell Physiology, vol. 46, no. 1, 15 Jan. 2005, pp. 213–223
+
+- Mockler, Todd C., et al. “Antagonistic actions of arabidopsis cryptochromes and phytochrome B in the regulation of Floral Induction.” Development, vol. 126, no. 10, 15 May 1999, pp. 2073–2082
+
+- Sakuraba, Yasuhito. “Light-mediated regulation of leaf senescence.” International Journal of Molecular Sciences, vol. 22, no. 7, 24 Mar. 2021, p. 3291
+:::
+
+

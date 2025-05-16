@@ -10,7 +10,7 @@
 <link href="index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.5.57">
 
-  <title>BIOL 607 Final Presentation</title>
+  <title>Dissecting Photoreceptor Contributions to Leaf Growth</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -325,7 +325,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">BIOL 607 Final Presentation</h1>
+  <h1 class="title">Dissecting Photoreceptor Contributions to Leaf Growth</h1>
   <p class="subtitle">Dantony Lewis</p>
 
 <div class="quarto-title-authors">
@@ -335,29 +335,51 @@
 <section id="photoreceptors" class="slide level2">
 <h2>Photoreceptors</h2>
 <ul>
-<li><p>plants possess several photoreceptor proteins that precieve light from blue to far red</p></li>
-<li><p>plants use light signals to adjust their growth patterns by modifying celullar process</p></li>
+<li class="fragment"><p>Plants possess several photoreceptor proteins that percieve light from blue to far red</p></li>
+<li class="fragment"><p>Plants use light signals to activate photoreceptors that interact with transcription factors (PIFs) in order to impact hormone signaling pathways that adjust cellular processes</p></li>
 </ul>
+<div class="slide" style="text-align: center;">
+<p><img data-src="images/visible-light-spectrum-infared-and-ultraviolet-electromagnetic-visible-color-spectrum-for-human-eye-gradient-diagram-with-wavelength-and-colors-educational-illustration-on-white-background-vector.jpg" style="width:70.0%;height:70.0%"></p>
+</div>
 </section>
-<section id="phytochrome-vs-cryptochrome" class="slide level2">
-<h2>Phytochrome vs Cryptochrome</h2>
+<section id="phytochrome-cryptochrome" class="slide level2">
+<h2>Phytochrome &amp; Cryptochrome</h2>
 <ul>
-<li><p>Phytochrome absorbs far-red, red, and blue light. Cryptochrome absorbs blue light.</p></li>
-<li><p>Phytochrome and Cryptochrome is comprised of genes involved in light signaling with different functions throughout plant life. (<em>phyA</em>, <em>phyB</em>, <em>cry1</em>, <em>cry2</em>)</p></li>
+<li class="fragment"><p>Phytochrome &amp; Cyrptochrome are the essential photoreceptor proteins but respond to different wavelengths of light</p></li>
+<li class="fragment"><p>The main types of Photoreceptors that signal different functions throughout plant life are: <em>phyA</em>, <em>phyB</em>, <em>cry1</em>, <em>cry2</em></p></li>
 </ul>
 </section>
 <section id="question" class="slide level2">
 <h2>Question</h2>
-<p>Which photoreceptor gene (<em>phyA</em>, <em>phyB</em>, <em>cry1</em>, <em>cry2</em>) promotes growth in the light responsive gene network in <em>Arabidopsis thaliana</em>.</p>
-<p><strong>Hypothesis</strong>: <em>phyB</em> significantly impacts physiological active light responses in leaf growth in the light responsive gene network of <em>A. thaliana</em>.</p>
+<p>Which photoreceptor (<em>phyA</em>, <em>phyB</em>, <em>cry1</em>, <em>cry2</em>) promotes leaf growth in the light responsive gene network of the <em>Arabidopsis thaliana</em>.</p>
+<p><strong>Prior Studies</strong></p>
+<ul>
+<li class="fragment"><p><em>phyB</em> red light signaling inhibits the initiation of leaf senescence<sup>1</sup></p></li>
+<li class="fragment"><p>Other photoreceptors (<em>cry1</em> &amp; <em>phyA</em>) inhibit <em>phyB</em> suppression of floral initiation<sup>2</sup></p></li>
+</ul>
+
+<aside><div>
+
+</div><ol class="aside-footnotes"><li id="fn1"><p>(Sakuraba, 2021)</p></li><li id="fn2"><p>(Mockler, 1999)</p></li></ol></aside></section>
+<section id="hypothesis" class="slide level2">
+<h2>Hypothesis</h2>
+<ul>
+<li class="fragment"><em>phyB</em> significantly promotes active light responses in leaf growth within the light responsive gene network of <em>A. thaliana</em></li>
+</ul>
+<div class="slide" style="text-align: center;">
+<p><img data-src="images/Arabidopsis_thaliana_rosette_transparent_background.png" style="width:40.0%;height:40.0%"></p>
+</div>
 </section>
-<section id="data" class="slide level2">
+<section id="data" class="slide level2 smaller">
 <h2>Data</h2>
 <p>Collected by: Department of Biotechnology and Life Sciences, University of Insubria, Varese (VA), Italy</p>
 <ul>
-<li><p><em>A. thaliana</em> mutants containing the loss-of-function in specific photoreceptors grown under high-pressure sodium (HPS) lamps</p></li>
-<li><p>Lamina / Petiole ratio (L/P) measured when the six-leaf stage is reached ~17 days after sowing(DAS)</p></li>
+<li class="fragment"><p><em>A. thaliana</em> mutants containing the loss-of-function in specific photoreceptors grown under high-pressure sodium (HPS) lamps</p></li>
+<li class="fragment"><p>Lamina / Petiole ratio (L/P) measured when the six-leaf stage is reached ~17 days after sowing(DAS)</p></li>
 </ul>
+<div class="slide" style="text-align: center;">
+<p><img data-src="images/leaf_diagram.jpg" style="width:30.0%;height:30.0%"></p>
+</div>
 </section>
 <section id="base-data-visualization" class="slide level2">
 <h2>Base Data Visualization</h2>
@@ -408,13 +430,17 @@ L/P_i = \beta_0 + \sum_{j=1}^{k} \beta_j \cdot \text{Mutant}_{ij} + \varepsilon_
 <h2>Gene Expression Analyisis</h2>
 <p>Data Collected by: Shanghai University, Shanghai, China</p>
 <ul>
-<li><p>Analyzing the gene expression profile of red-light grown <em>phyB</em> mutants by sequencing mRNA from samples to analyze the genes regulated by <em>phyB.</em></p></li>
-<li><p>Using limma an r package from Bioconductor, to analyze gene expression data and identity significant genes</p></li>
+<li class="fragment"><p>Analyzing the gene expression profile of red-light grown <em>phyB</em> mutants by sequencing mRNA from samples to analyze the genes regulated by <em>phyB.</em></p></li>
+<li class="fragment"><p>Using limma an r package from Bioconductor, to analyze gene expression data and identity significant genes</p></li>
 </ul>
+<div class="slide" style="text-align: center;">
+<p><img data-src="images/0*1EvyFTQv-JAZh5nM.png" style="width:17.0%;height:17.0%"></p>
+</div>
 </section>
-<section id="gene-expression-analyisis-limma-visualization" class="slide level2 smaller">
-<h2>Gene Expression Analyisis: Limma Visualization</h2>
-<p>M value = difference between the log<sub>2</sub>-transformed expression values</p>
+<section id="limma-visualization" class="slide level2 smaller">
+<h2>limma Visualization</h2>
+<p>M value = difference between the log<sub>2</sub>-transformed expression values<br>
+A value = average log<sub>2</sub> expression</p>
 
 <img data-src="index_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"><div class="footer">
 <p><span style="color:skyblue;">Blue</span> circles represent genes that are significantly differently expressed</p>
@@ -422,25 +448,43 @@ L/P_i = \beta_0 + \sum_{j=1}^{k} \beta_j \cdot \text{Mutant}_{ij} + \varepsilon_
 </section>
 <section id="analysis" class="slide level2">
 <h2>Analysis</h2>
+<p><strong>Categorical Linear Model</strong></p>
 <ul>
-<li>Mutant <em>phyB</em> has the greatest impact on leaf growth (L/P), suggesting significant difference from WT</li>
-<li>Other mutants show similar leaf growth(L/P) to WT, suggests there is no clear effect</li>
-<li>There are significant genes that likely play a role in how <em>phyB</em> differs biologically from WT</li>
+<li class="fragment"><p>Mutant <em>phyB</em> impact on leaf growth (L/P) is significantly different from the WT</p></li>
+<li class="fragment"><p><em>phyA</em> &amp; <em>cry2</em> show no clear effect on leaf growth, while <em>cry1</em> suggests some difference</p></li>
+</ul>
+<p><strong>limma MA plot</strong></p>
+<ul>
+<li class="fragment">There are significant genes that likely play a role in how <em>phyB</em> differs biologically from the WT</li>
 </ul>
 </section>
 <section id="further-exploration" class="slide level2">
 <h2>Further Exploration</h2>
 <ul>
-<li>Is leaf growth (L/P) predictive of <em>phyB</em> gene expression patterns in <em>Arabidopsis thaliana</em>?</li>
-<li>Measure a phenotypic factor as well as gene expression to create a model that utilizes both.</li>
-<li>With use of significant <em>phyB</em> genes we can find which genes’ expression level change with leaf growth and if <em>phyB</em>-regulated genes are among these</li>
+<li class="fragment">Is leaf growth (L/P) predictive of <em>phyB</em> gene expression patterns in <em>Arabidopsis thaliana</em>?</li>
+<li class="fragment">Measure a phenotypic factor as well as gene expression to create a model that utilizes both</li>
+<li class="fragment">With use of significant <em>phyB</em> genes, we can find which genes’ expression level change with leaf growth and if <em>phyB</em>-regulated genes are among these</li>
 </ul>
+</section>
+<section id="references" class="slide level2 scrollable smaller">
+<h2>References</h2>
+<div>
+<ul>
+<li><p>Beatrice, Peter, et al.&nbsp;“Photoreceptors’ gene expression of Arabidopsis thaliana grown with biophilic LED-sourced lighting systems.” PLOS ONE, vol.&nbsp;17, no. 6, 10 June 2022</p></li>
+<li><p>Boccalandro, Hernán E., et al.&nbsp;“Phytochrome B enhances photosynthesis at the expense of water-use efficiency in Arabidopsis.” Plant Physiology, vol.&nbsp;150, no. 2, 10 Apr.&nbsp;2009, pp.&nbsp;1083–1092</p></li>
+<li><p>Colón-Carmona, Adán (2025, March). Lecture 12: Light Signaling &amp; Responses [Lecture]. BIOL 321: Plant Physiology, University of Massachusetts Boston</p></li>
+<li><p>Kozuka, Toshiaki, et al.&nbsp;“The different growth responses of the Arabidopsis thaliana leaf blade and the petiole during shade avoidance are regulated by photoreceptors and sugar.” Plant and Cell Physiology, vol.&nbsp;46, no. 1, 15 Jan.&nbsp;2005, pp.&nbsp;213–223</p></li>
+<li><p>Mockler, Todd C., et al.&nbsp;“Antagonistic actions of arabidopsis cryptochromes and phytochrome B in the regulation of Floral Induction.” Development, vol.&nbsp;126, no. 10, 15 May 1999, pp.&nbsp;2073–2082</p></li>
+<li><p>Sakuraba, Yasuhito. “Light-mediated regulation of leaf senescence.” International Journal of Molecular Sciences, vol.&nbsp;22, no. 7, 24 Mar.&nbsp;2021, p.&nbsp;3291</p></li>
+</ul>
+</div>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
 </div>
 </div>
 </section>
+
     </div>
   </div>
 
