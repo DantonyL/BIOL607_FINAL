@@ -91,7 +91,7 @@ base_d <- base_d |>
   mutate(Mutant = factor(Mutant, levels = c("WT", setdiff(unique(Mutant), "WT"))))
 
 
-lm_model <-  lm(`L/P` ~ Mutant, data = base_d)
+lm_model <-  lm(log(`L/P`) ~ Mutant, data = base_d)
 
 check_residuals(lm_model) |> plot()
 ```
@@ -127,8 +127,8 @@ Combining the prediction of two models: null model (mean only) and categorical m
 library(AICcmodavg)
 library(MuMIn)
 
-phyto_lm <- lm(`L/P` ~ Mutant, data = base_d)
-phyto_mean <- lm(`L/P` ~ 1, data = base_d)
+phyto_lm <- lm(log(`L/P`) ~ Mutant, data = base_d)
+phyto_mean <- lm(log(`L/P`) ~ 1, data = base_d)
 
 aictab(list(phyto_lm, phyto_mean), 
        c("linear model", "mean only"),
